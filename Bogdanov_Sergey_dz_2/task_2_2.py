@@ -27,3 +27,58 @@
 #my_list = ['в', '5', 'часов', '17', 'минут', 'температура', 'воздуха', 'была', '+5', 'градусов']
 #result = convert_list_in_str(my_list)
 #print(result)
+
+# ----------------------------------------------------------------------------------------------------------------------
+
+def convert_list_in_str(list_in: list) -> str:
+    """Обособляет каждое целое число кавычками, добавляя кавычку до и после элемента
+        списка, являющегося числом, и дополняет нулём до двух целочисленных разрядов.
+        Формирует из списка результирующую строковую переменную и возвращает."""
+    str_out_list = []
+    for i in list_in:
+        if str.isalpha(i):  # если значение БУКВА
+            str_out_list.append(i)  # добавляем БУКВУ в список str_out_list
+        if str.isdigit(i):  # если значение состоит из ЦИФР
+            if len(i) <= 1:  # Если длина ЧИСЛА (количество цифр меньше или равно 1)
+                str_num = list(i)  # делаем из строки список
+                str_num.insert(0, '0')  # на индекс 0 вставляем значение "0"
+                str_num = ''.join(str_num)  # собираем строку из списка
+                str_out_list.append(str_num)  # добавяем ЧИСЛО в список str_out_list
+            else:
+                str_out_list.append(i)
+        # над следующей ниже частью пришлось подумать
+        if not str.isdigit(i) and not str.isalpha(i):  # Если не чистые цифры, и не чистые буквы
+            list_i = list(i)  # по аналогии -> разбиваем строку и создаем список
+            str_i = []  # пустой список из которого будем делать нужную строку
+            for i in list_i:
+                if str.isdigit(i) and len(list_i) <= 2:
+                    str_i.append(i)
+                elif not str.isdigit(i) and len(list_i) <= 2:
+                    str_i.append(i)
+                    str_i.append('0')
+                else:
+                    str_i.append(i)
+            str_i = ''.join(str_i)  # собираем итоговую строку
+            str_out_list.append(str_i)  # добавляем итоговую строку str_i в список str_out_list
+
+    # дальше добавляем кавычки перед цифрами
+    final_list = []
+    for i in str_out_list:
+        if i.isalpha():
+            final_list.append(i)
+        if i.isdigit():
+            final_list.append('"')
+            final_list.append(i)
+            final_list.append('"')
+        if not str.isdigit(i) and not str.isalpha(i):
+            final_list.append('"')
+            final_list.append(i)
+            final_list.append('"')
+
+    str_out = ' '.join(final_list) # как убрать пробелы между цифрами и кавычками я не знаю
+    return str_out
+
+
+my_list = ['в', '5', 'часов', '17', 'минут', 'температура', 'воздуха', 'была', '+5', 'градусов']
+result = convert_list_in_str(my_list)
+print(result)

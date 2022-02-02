@@ -69,3 +69,60 @@
 #
 # result_4 = check_five_max_elements(my_list)
 # print(result_4)
+
+# ----------------------------------------------------------------------------------------------------------------------
+
+from random import uniform
+
+def transfer_list_in_str(list_in: list) -> str:
+    """Преобразует каждый элемент списка (вещественное число) в строку вида '<r> руб <kk> коп' и
+        формирует из них единую строковую переменную разделяя значения запятой."""
+    inner_list_begin = list_in.copy() # Если копию не делать, то затрётся изначальный список и не будут работать последующие функции
+    inner_list = []
+    for i in range(len(inner_list_begin)):
+        get_item = str(inner_list_begin.pop()).split('.', -1) # забираем последний элемент списка и делаем его списком  с двумя элементами через метод .split
+        # print(get_item, type(get_item))
+        get_ruble = get_item[0] # Получаем первый элемент (рубли)
+        get_kopek = get_item[-1] # Получаем второй элемент (копейки)
+        # print(get_ruble, type(get_ruble), get_kopek, type(get_kopek))
+        price = f'{get_ruble} руб {get_kopek} коп' # собираем нужную строку
+        # print(price, type(price))
+        inner_list.append(price) # добавялем строку price в список
+    inner_list.reverse()# реверс списка
+    format_inner_list = ', '.join(inner_list) # склеиваем список inner_list
+    str_out = f'Преобразованная строка: {format_inner_list}' #"здесь итоговая строка"
+    return str_out
+
+my_list = [round(uniform(10, 100), 2) for _ in range(1, 16)]  # автоматическая генерация случайных 15 чисел
+print(f'Исходный список вещественных чисел (float): {my_list}')
+result_1 = transfer_list_in_str(my_list)
+print(result_1)
+
+def sort_prices(list_in: list) -> list:
+    """Сортирует вещественные числа по возрастанию, не создавая нового списка"""
+    list_in.sort()  # сортируем список по возврастанию (дефолт для sort())
+    return list_in  # ["отсортированный результирующий список"]
+
+print(f'\n{id(my_list)} -> Адрес начального списка') # зафиксируйте здесь информацию по исходному списку my_list
+result_2 = sort_prices(my_list)
+print(f'{id(result_2)} -> Адрес того же списка, но отсортированного по возрастанию') # зафиксируйте здесь доказательство, что результат result_2 остался тем же объектом
+print(f'Список, сортированный по возрастанию: {result_2}\n')
+
+def sort_price_adv(list_in: list) -> list:
+    """Создаёт новый список и возвращает список с элементами по убыванию"""
+    list_out = sorted(list_in, reverse=True) # ["список элементов в списке по убыванию"]
+    return list_out
+
+print(f'\n{id(my_list)} -> Адрес начального списка')
+result_3 = sort_price_adv(my_list)
+print(f'{id(result_3)} -> Адрес списка, отсортированного по убыванию. Ух ты, адрес то поменялся.')
+print(result_3)
+
+def check_five_max_elements(list_in: list) -> list:
+    """Проверяет элементы входного списка вещественных чисел и возвращает
+        список из ПЯТИ максимальных значений"""
+    list_in.sort(reverse=True) # сортируем список в обратном порядке
+    list_out = list_in[0:5]  # получаем первые ПЯТЬ элементов, т.е. первые 5 самых больших значений["список из пяти самых больших элементов"]
+    return list_out
+result_4 = check_five_max_elements(my_list)
+print(f'\nА вот и самые большие числа (целых ПЯТЬ штук) в нашем списке: {result_4}')
