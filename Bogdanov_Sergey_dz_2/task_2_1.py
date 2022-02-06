@@ -20,6 +20,8 @@ def whats_type(obj):
         print('Тип результата выражения: str')
     else:
         print('Не int и не str, может быть list()? Об этом мы узнаем в следующий раз')
+
+
 whats_type(15 // 3)
 
 print(isinstance(15 ** 3, int)) # True если тип int

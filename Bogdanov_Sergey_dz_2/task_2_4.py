@@ -40,13 +40,17 @@ def convert_name_extract(list_in: list) -> list:
         # print(get_position, type(get_position))
         get_name = first_item_split.pop().lower().capitalize()  # забираем имя и приводим его к нижнему регистру и "поднимаем" первую букву
         # print(get_name, type(get_name))
-        new_person = ' '.join([get_position, get_name])  # в новый список заносим дожность и имя сотрудника
+        #new_person = ' '.join([get_position, get_name])  # в новый список заносим дожность и имя сотрудника
+        hello_list = f'Привет, {get_name}!'
         # print(new_item, type(new_item))
-        list_out.insert(0, new_person)  # добавляем итем в список list_out
+        #list_out.insert(0, new_person)  # добавляем итем в список list_out
+        list_out.insert(0, hello_list)
     #list_out = ["здесь должены оказаться результирующие строковые приветствия"]
     return list_out
+
 
 my_list = ['инженер-конструктор Игорь', 'главный бухгалтер МАРИНА', 'токарь высшего разряда нИКОЛАй', 'директор аэлита']
 print(f'Входящий список: {my_list}')
 result = convert_name_extract(my_list)
 print(f'Обработанный список: {result}')
+
