@@ -1,12 +1,58 @@
-"""
-Задание 1
-Результат выполнения задания должен быть файл task_4_1.txt добавленный в репозиторий, в котором будут введенные Вами команды и их результат
+1. Проверить, установлен ли pillow. Как видим, его нет.
+>> C:\...\Bogdanov_Sergey_dz_4>pip freeze
+certifi==2021.10.8
+chardet==4.0.0
+num2words==0.5.10
+pyquery==1.4.3
+pytz==2021.3
+requests==2.25.1
+sqlparse==0.4.2
+urllib3==1.26.8
 
-Проверить, установлен ли пакет pillow в глобальном окружении. Если да — зафиксировать версию.
-Установить самую свежую версию pillow, если ранее она не была установлена.
-Создать и активировать виртуальное окружение. Убедиться, что в нем нет пакета pillow.
-Установить в виртуальное окружение pillow версии 7.1.1 (или другой, отличной от самой свежей).
-Деактивировать виртуальное окружение.
-Если будут проблемы с pillow - можно поработать с другим пакетом: например, requests.
-Пример части содержимого файла task_4_1.txt:
-"""
+2. Устанавливаем последнюю версию pillow.
+>> C:\...\Bogdanov_Sergey_dz_4>pip install pillow
+
+3. Проверяем наличие pillow
+>> C:\...\Bogdanov_Sergey_dz_4>pip freeze
+certifi==2021.10.8
+chardet==4.0.0
+charset-normalizer==2.0.11
+cssselect==1.1.0
+Django==2.2
+docopt==0.6.2
+idna==2.10
+lxml==4.7.1
+num2words==0.5.10
+Pillow==9.0.1   << Ага, попался.
+pyquery==1.4.3
+pytz==2021.3
+requests==2.25.1
+sqlparse==0.4.2
+urllib3==1.26.8
+
+4. Создаем ВО.
+>> C:\...\Bogdanov_Sergey_dz_4>python -m venv virt_env
+
+5. Заходим в ВО, проверяем окружение, ставим pillow v.7.1.1
+>> C:\...\Bogdanov_Sergey_dz_4>"virt_env/Scripts/activate.bat"
+>> C:\...\Bogdanov_Sergey_dz_4>pip freeze
+ПУСТО
+>> C:\...\Bogdanov_Sergey_dz_4>pip intall pillow==7.1.1
+>> C:\...\Bogdanov_Sergey_dz_4>pip freeze
+Pillow==7.1.1
+
+6. Проверяем.
+>> C:\...\Bogdanov_Sergey_dz_4>pip show pillow
+Name: Pillow
+Version: 7.1.1
+Summary: Python Imaging Library (Fork)
+Home-page: https://python-pillow.org
+Author: Alex Clark (PIL Fork Author)
+Author-email: aclark@python-pillow.org
+License: HPND
+Location: c:\...\bogdanov_sergey_dz_4\virt_env\lib\site-packages
+Requires:
+Required-by:
+
+7. Закрываем ВО
+>> C:\...\Bogdanov_Sergey_dz_4>deactivate

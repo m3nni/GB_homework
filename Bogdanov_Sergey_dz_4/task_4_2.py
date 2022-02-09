@@ -1,36 +1,27 @@
-"""
-В корневой директории урока создать task_4_2.py и написать в нём функцию currency_rates(), принимающую в качестве аргумента код валюты (например, USD, EUR, SGD, ...) и возвращающую курс этой валюты по отношению к рублю.
-
-Использовать библиотеку requests.
-
-В качестве API можно использовать http://www.cbr.ru/scripts/XML_daily.asp.
-
-Рекомендация: выполнить предварительно запрос к API в обычном браузере, посмотреть содержимое ответа.
-
-Можно ли, используя только методы класса str, решить поставленную задачу?
-Функция должна возвращать результат числового типа, например float.
-Подумайте:
-
-есть ли смысл для работы с денежными величинами использовать вместо float тип Decimal?
-Сильно ли усложняется код функции при этом?
-Если в качестве аргумента передали код валюты, которого нет в ответе, вернуть None.
-
-Можно ли сделать работу функции не зависящей от того, в каком регистре был передан аргумент?
-В качестве примера выведите курсы доллара и евро.
-
-ВНИМАНИЕ! Используйте стартовый код для своей реализации:
-
 import requests
 
 
-def currency_rates(code: str) -> float:
-    # возвращает курс валюты `code` по отношению к рублю
-    # ваша реализация здесь
-    result_value = 1.11  ## здесь должно оказаться результирующее значение float
+def currency_rates(code: str, cbr_url='http://www.cbr.ru/scripts/XML_daily.asp') -> float:
+
+    if not (code, cbr_url): # Ели валюта не указана
+        return None # возвращаем None
+
+    code = code.upper() # фиксируем регистр
+    response = requests.get(cbr_url) # делаем первый запрос
+    if response.ok:
+        cur = response.text.split(code)
+        if len(cur) == 1:
+            return None
+
+        value = cur[1].split('</Value')[0].split('<Value>')[1] # получаем значение типа str
+        value = float(value.replace(',', '.')) # преобразуем str во float
+        value = float('{0:.2f}'.format(value)) # ограничиваем количество знаков
+        nominal = int(cur[1].split('</Nominal')[0].split('<Nominal>')[1]) # получаем номинал валюты
+        result_value = value / nominal # получаем цену 1 купюры (в рублях)
+
     return result_value
 
 
-print(currency_rates("USD"))
-print(currency_rates("noname"))
-"""
-
+print(currency_rates('USD'))
+print(currency_rates('EUR'))
+print(currency_rates('some_else'))

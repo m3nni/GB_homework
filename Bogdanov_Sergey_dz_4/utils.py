@@ -1,26 +1,24 @@
-import datetime
 import requests
+import datetime
 
 
 def currency_rates_adv(code: str, cbr_url = 'http://www.cbr.ru/scripts/XML_daily.asp'):
 
     if not (code, cbr_url): # Ели валюта не указана
         return None # возвращаем None
-
     code = code.upper() # фиксируем регистр
     response = requests.get(cbr_url) # делаем первый запрос
     if response.ok:
         cur = response.text.split(code)
-        if len(cur) == 1:
+        if cur == 1:
             return None
 
         value = cur[1].split('</Value')[0].split('<Value>')[1] # получаем значение типа str
         value = float(value.replace(',', '.')) # преобразуем str во float
-        value = float('{0:.2f}'.format(value)) # ограничиваем количество знаков
-
+        # value = float('{0:.2f}'.format(value)) # ограничиваем количество знаков
         nominal = int(cur[1].split('</Nominal')[0].split('<Nominal>')[1]) # получаем номинал валюты
-
         kurs = value / nominal # получаем цену 1 купона (в рублях)
+        kurs = float('{0:.3f}'.format(kurs))
 
         date_value = response.headers['Date'] # получаем Date из headers
         format = '%a, %d %b %Y %H:%M:%S GMT' # собираем формат даты
@@ -28,18 +26,6 @@ def currency_rates_adv(code: str, cbr_url = 'http://www.cbr.ru/scripts/XML_daily
 
     return kurs, date_value
 
-kurs, date_value = currency_rates_adv("EUR")
 
-empty = bool(not kurs and not date_value)
-if not empty and not isinstance(kurs, float):
-    raise TypeError("Неверный тип данных у курса")
-if not empty and not isinstance(date_value, datetime.date):
-    raise TypeError("Неверный тип данных у даты")
-print(kurs, date_value)
-
-if not empty and not isinstance(kurs, float):
-    raise TypeError("Неверный тип данных у курса")
-if not empty and not isinstance(date_value, datetime.date):
-    raise TypeError("Неверный тип данных у даты")
-kurs, date_value = currency_rates_adv("USD")
-print(kurs, date_value)
+if __name__ == '__main__':
+    print('Welcome')

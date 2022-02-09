@@ -1,10 +1,15 @@
+import utils
+
+result_value = utils.currency_rates_adv('EUR')[0]
+print(result_value)
+result_value = utils.currency_rates_adv('USD')[0]
+print(result_value)
+result_value = utils.currency_rates_adv('JPY')[0]
+print(result_value)
+
 """
-аписать свой модуль utils и копировать в него функцию currency_rates() из предыдущего задания.
-
-Создать в корневой директории урока, рядом с модулем utils скрипт task_4_4.py, в котором импортировать модуль utils
-и выполнить несколько вызовов функции utils.currency_rates().
-
-Убедиться, что ничего лишнего не происходит.
-
-Приложите в конце скрипта task_4_4.py многострочным комментарием результат его запуска с консоли/терминала.
+PS C:\...\Bogdanov_Sergey_dz_4> python task_4_4.py
+85.378
+74.802
+0.648
 """
