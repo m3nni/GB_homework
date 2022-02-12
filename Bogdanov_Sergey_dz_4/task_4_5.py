@@ -1,3 +1,7 @@
+"""
+Работет из терминала
+"""
+
 import sys
 
 import utils
@@ -20,3 +24,5 @@ if __name__ == '__main__':
 PS C:\...\Bogdanov_Sergey_dz_4> python task_4_5.py USD
 74.802 2022-02-09
 """
+
+print('end')

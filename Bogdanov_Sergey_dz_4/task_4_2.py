@@ -25,3 +25,5 @@ def currency_rates(code: str, cbr_url='http://www.cbr.ru/scripts/XML_daily.asp')
 print(currency_rates('USD'))
 print(currency_rates('EUR'))
 print(currency_rates('some_else'))
+
+print('end')
