@@ -58,3 +58,5 @@ print(type(generator)) # добавьте здесь доказательств�
 for _ in range(len(tutors)):
     print(next(generator))
 # next(generator)  # если раскомментировать, то должно падать в traceback по StopIteration
+
+print('end')
