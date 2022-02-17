@@ -28,3 +28,33 @@ with open('nginx_logs.txt', 'r', encoding='utf-8') as fr:
 
 pprint(list_out)
 """
+
+from pprint import pprint
+
+
+def get_parse_attrs(line: str) -> tuple:
+    # Парсит строку на атрибуты и возвращает кортеж атрибутов (<remote_addr>, <request_type>, <requested_resource>)
+    # с учетом того, что мы знаем в каком порядке идут требуемые данные в файле логов, делаем так:
+
+    # вариант 1
+    # remote_addr = line.split()[0]
+    # request_type = line.split()[5][1:]
+    # requested_resource = line.split()[6]
+    # result_tuple = remote_addr, request_type, requested_resource
+
+    # вариант 2
+    result_tuple = line.split()[0], line.split()[5][1:], line.split()[6]
+
+    return result_tuple
+
+
+list_out = list()
+with open('nginx_logs.txt', 'r', encoding='utf-8') as fr:
+    while True:
+        line = fr.readline()
+        if not line:
+            break
+        list_out.append(get_parse_attrs(line))
+
+
+pprint(list_out)
