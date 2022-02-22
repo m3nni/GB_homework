@@ -14,3 +14,27 @@
 
 Подсказка: размер файла можно получить из атрибута .st_size объекта os.stat.
 """
+
+import os
+import sys
+from pprint import pprint
+
+size = {}
+
+def size_files(path):
+
+    for root, dirs, files in os.walk(path):
+        for file in files:
+            r_file = os.path.join(root, file)
+            st_sizes = 10 ** len(str(os.stat(r_file).st_size))
+            size[st_sizes] = size.get(st_sizes, 0) + 1
+
+
+if __name__ == "__main__":
+
+    if len(sys.argv) == 2:
+        path = sys.argv[1]
+    else:
+        path = os.getcwd()
+    size_files(path)
+    pprint(size, width=1)
